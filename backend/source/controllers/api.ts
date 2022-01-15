@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 
 const book = (req: Request, res: Response) => {
     return res.status(501).send();
@@ -6,10 +6,10 @@ const book = (req: Request, res: Response) => {
 
 const reset = (req: Request, res: Response) => {
     return res.status(501).send();
-}
+};
 
 const tick = (req: Request, res: Response) => {
     return res.status(501).send();
-}
+};
 
-export default { book, reset, tick };
+export default {book, reset, tick};
