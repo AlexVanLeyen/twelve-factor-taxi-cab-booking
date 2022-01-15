@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
-const book = (req: Request, res: Response, next: NextFunction) => {
+const book = (req: Request, res: Response) => {
     return res.status(501).send();
 };
 
-const reset = (req: Request, res: Response, next: NextFunction) => {
+const reset = (req: Request, res: Response) => {
     return res.status(501).send();
 }
 
-const tick = (req: Request, res: Response, next: NextFunction) => {
+const tick = (req: Request, res: Response) => {
     return res.status(501).send();
 }
 
