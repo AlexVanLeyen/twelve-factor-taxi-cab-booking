@@ -10,6 +10,12 @@
         "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-        "no-console": 1
+        "comma-dangle": "error",
+        "eol-last": "error",
+        "key-spacing": "error",
+        "no-console": "error",
+        "no-trailing-spaces": "error",
+        "object-curly-spacing": "error",
+        "semi": "error"
     }
 }
