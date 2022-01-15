@@ -1,5 +1,5 @@
 import express from 'express';
-import api from '@controllers/api';
+import api from '#controllers/api';
 
 const router = express.Router();
 
