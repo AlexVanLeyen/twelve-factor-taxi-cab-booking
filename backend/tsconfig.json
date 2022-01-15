@@ -7,9 +7,10 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "source",
+        "baseUrl": ".",
         "paths": {
-            "#*": ["./*"]
-        }
-    },
+            "#*": ["source/*"]
+        },
+        "resolveJsonModule": true
+    }
 }

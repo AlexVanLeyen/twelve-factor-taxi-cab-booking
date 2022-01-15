@@ -4,6 +4,8 @@
   "description": "",
   "main": "source/server.ts",
   "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "rm -rf build && prettier --write source/ && tsc",
     "start:dev": "nodemon --watch source/ --exec npx ts-node -r tsconfig-paths/register source/server.ts"
   },
