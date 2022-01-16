@@ -1,4 +1,5 @@
 import {createLogger, format, transports} from 'winston';
+import expressWinston from 'express-winston';
 
 const logLevels = {
     fatal: 0,
@@ -10,10 +11,18 @@ const logLevels = {
 };
 
 const logger = createLogger({
-    format: format.combine(format.timestamp(), format.prettyPrint()),
+    format: format.combine(format.timestamp(), format.json()),
     level: "info",
     levels: logLevels,
     transports: [new transports.Console()]
 });
 
+const expressLogger = expressWinston.logger({
+    transports: [new transports.Console()],
+    expressFormat: true
+});
+
 export default logger;
+export {
+    expressLogger
+};
