@@ -13,9 +13,14 @@
         "comma-dangle": "error",
         "eol-last": "error",
         "key-spacing": "error",
+        "keyword-spacing": "error",
         "no-console": "error",
         "no-trailing-spaces": "error",
         "object-curly-spacing": "error",
+        "padding-line-between-statements": [
+            "error",
+            { "blankLine": "always", "prev": "*", "next": "return"}
+        ],
         "semi": "error"
     }
 }
