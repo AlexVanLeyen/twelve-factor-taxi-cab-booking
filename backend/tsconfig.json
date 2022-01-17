@@ -12,5 +12,9 @@
             "#*": ["source/*"]
         },
         "resolveJsonModule": true
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "__tests__"
+    ]
 }
