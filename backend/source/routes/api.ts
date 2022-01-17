@@ -33,15 +33,15 @@ const router = express.Router();
  *                                  y:
  *                                      type: integer
  *                                      example: -200
- *                              destination:
- *                                  type: object
- *                                  properties:
- *                                      x:
- *                                          type: integer
- *                                          example: -2500
- *                                      y:
- *                                          type: integer
- *                                          example: 50
+ *                          destination:
+ *                              type: object
+ *                              properties:
+ *                                  x:
+ *                                      type: integer
+ *                                      example: -2500
+ *                                  y:
+ *                                      type: integer
+ *                                      example: 50
  *      responses:
  *          200:
  *              description: Booking was successful.
