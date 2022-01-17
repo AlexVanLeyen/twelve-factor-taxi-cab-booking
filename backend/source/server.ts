@@ -6,7 +6,6 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import * as swaggerDefinition from 'swagger.json';
 
-
 const PORT = process.env.PORT ?? 8080;
 const specs = swaggerJsdoc({
     swaggerDefinition,
@@ -18,7 +17,7 @@ const app = express();
 app.use(expressLogger);
 app.use(express.json());
 
-app.use(swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api', apiRoutes);
 app.use(errorRoutes);
 
