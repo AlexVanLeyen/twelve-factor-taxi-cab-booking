@@ -23,6 +23,8 @@ Once your service is running, you can find the API documentation at http://local
 For local development, you will require NodeJS v17.3.1 installed on your local machine.
 
 ```shell
+# move into the backend directory...
+cd backend
 # Make sure you've installed all of the production and development dependencies
 npm install
 # The following will run the jest test suite.
