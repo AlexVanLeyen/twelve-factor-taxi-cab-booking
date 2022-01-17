@@ -8,22 +8,32 @@ import NonUnqiueException from '#exceptions/NonUniqueException';
 export type BookingResponse = {
     carId: number
     totalTime: number
-} | false;
+};
 
-
+/**
+ * The world engine.
+ *
+ * This class is expected to contain everything needed
+ * to manage a single instance of the taxi booking service.
+ */
 class World {
 
-    private cars: Car[];
-    private grid: GridInterface;
+    private _cars: Car[];
+    private _grid: GridInterface;
 
     constructor({grid}: {grid: GridInterface}) {
-        this.cars = [];
-        this.grid = grid;
+        this._cars = [];
+        this._grid = grid;
     }
 
-    public book(booking: Booking): BookingResponse {
-        if ( this.grid.isValidVertex(booking.source) === false ||
-            this.grid.isValidVertex(booking.destination) === false) {
+    /**
+     * Attempts to book the nearest available taxi.
+     * @param booking
+     * @returns BookingResponse on a successful booking or false if no taxis are available.
+     */
+    public book(booking: Booking): BookingResponse | false {
+        if ( this._grid.isValidVertex(booking.source) === false ||
+            this._grid.isValidVertex(booking.destination) === false) {
                 throw new OutsideGridException('Booking source or destination is outside of the world.');
         }
 
@@ -41,33 +51,46 @@ class World {
         };
     }
 
+    /**
+     * Adds a car to the world.
+     * @throws OutsideGridException is thrown if the provided taxi's location is outside of the world's grid.
+     * @throws NonUniqueException is thrown if the provided taxi's unique identifier matches another taxi's unique identifier.
+     * @param car The taxi.
+     */
     public addCar(car: Car): void {
-        if (this.grid.isValidVertex(car.location) === false) {
+        if (this._grid.isValidVertex(car.location) === false) {
             throw new OutsideGridException('Car is outside of the world');
         }
 
-        if (this.cars.find((existingCars) => existingCars.id === car.id)) {
+        if (this._cars.find((existingCars) => existingCars.id === car.id)) {
             throw new NonUnqiueException('Car ID is nonunique');
         }
 
-        this.cars.push(car);
+        this._cars.push(car);
     }
 
+    /**
+     * Advances the world by one tick.
+     */
     public tick(): void {
-        this.cars.forEach((car) => car.onTick());
+        this._cars.forEach((car) => car.onTick());
     }
 
     private findNearestAvailableCar(vertex: Vertex): Car | null {
-        const availableCars = this.cars.filter((car) => car.isBusy() === false);
+        const availableCars = this._cars.filter((car) => car.isBusy() === false);
 
-        return  availableCars.length > 0 ?
-            availableCars.reduce(
+        let nearestCar;
+        if (availableCars.length > 0) {
+            nearestCar = availableCars.reduce(
                 (previous, current) => {
                     const delta = current.location.getManhattanDistanceToVertex(vertex) - previous.location.getManhattanDistanceToVertex(vertex);
 
                     return  delta < 0 || (delta === 0 && current.id < previous.id) ? current : previous;
                 }
-            ) : null;
+            );
+        }
+
+        return  nearestCar ? nearestCar : null;
     }
 
 }

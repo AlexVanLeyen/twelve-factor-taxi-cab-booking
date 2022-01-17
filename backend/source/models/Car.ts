@@ -1,6 +1,8 @@
 import TickInterface from "#interfaces/TickInterface";
 import Vertex from "#models/Vertex";
 import Booking from "#models/Booking";
+import NoDestinationException from "#exceptions/NoDestinationException";
+import CarBusyException from "#exceptions/CarBusyException";
 
 class Car implements TickInterface {
 
@@ -18,22 +20,37 @@ class Car implements TickInterface {
         return this._location;
     }
 
+    /**
+     * Convenience method for determining if this taxi is busy.
+     * @returns boolean
+     */
     public isBusy(): boolean {
         return this.hasDestination();
     }
 
+    /**
+     * Books this taxi.
+     * @throws CarBusyException is thrown when booking a taxi that is already booked.
+     * @param booking
+     */
     public book(booking: Booking): void {
         if (this.isBusy()) {
-            throw new Error("Car is busy");
+            throw new CarBusyException("Car is busy");
         }
 
         this._destinations.push(booking.source);
         this._destinations.push(booking.destination);
     }
 
-    public getDistanceToDestination() {
+    /**
+     * Calculates the distance between the taxi's current location and it's
+     * current destination.
+     * @throws NoDestinationException is thrown when the taxi has no destination.
+     * @returns The distance in units.
+     */
+    public getDistanceToDestination(): number {
         if (this.hasDestination() === false) {
-            throw new Error("Car has no destination");
+            throw new NoDestinationException("Car has no destination");
         }
 
         const [destination] = this._destinations;
@@ -41,6 +58,12 @@ class Car implements TickInterface {
         return this._location.getManhattanDistanceToVertex(destination);
     }
 
+    /**
+     * Handler for world tick event.
+     *
+     * This method moves the taxi one unit towards its current
+     * destination.
+     */
     public onTick(): void {
         if (this.hasDestination() === false) {
             return;

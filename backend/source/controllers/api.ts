@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
-import {world, resetWorld} from '#world';
 import {validationResult} from 'express-validator';
+
+import {world, resetWorld} from '#main';
 import {BookingResponse} from '#models/World';
 import Booking from '#models/Booking';
 import Vertex from '#models/Vertex';
@@ -21,7 +22,7 @@ const book = (req: Request, res: Response) => {
     });
 
 
-    let response: BookingResponse;
+    let response: BookingResponse | false;
     try {
         response = world.book(booking);
     } catch (error) {
