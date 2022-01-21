@@ -16,12 +16,12 @@ WORKDIR /app
 COPY . .
 RUN npm run build
 
+# The production container
 FROM node:lts-alpine
 ARG NODE_ENV
 ARG PORT
+ENV NODE_ENV=${NODE_ENV} PORT=${PORT}
 WORKDIR /usr/src/app
-ENV NODE_ENV=${NODE_ENV}
 COPY --from=builder /app/build . 
-ENV PORT=${PORT}
 EXPOSE ${PORT}
 CMD ["node", "server.js"]
