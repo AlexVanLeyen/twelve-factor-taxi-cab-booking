@@ -3,6 +3,7 @@
         "config",
         "testing",
         "monitoring",
-        "docs"
+        "docs",
+        "container"
     ]
 }
