@@ -106,3 +106,4 @@ dist
 # build files
 build/
 .docs/
+swagger.json
