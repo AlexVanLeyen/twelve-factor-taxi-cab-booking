@@ -4,10 +4,16 @@
   "description": "",
   "main": "source/server.ts",
   "scripts": {
-    "build": "rm -rf build && tsc --noEmit && esbuild source/server.ts --platform=node --bundle --minify --outfile=build/server.js",
+    "prebuild": "npm run clean & npm run docs",
+    "build": "tsc --noEmit && esbuild source/server.ts --platform=node --bundle --minify --outfile=build/server.js",
+    "postbuild": "cp ./node_modules/swagger-ui-dist/swagger-ui.css ./build & cp ./node_modules/swagger-ui-dist/swagger-ui-bundle.js ./build & cp ./node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js ./build & cp ./node_modules/swagger-ui-dist/favicon-16x16.png ./build & cp ./node_modules/swagger-ui-dist/favicon-32x32.png ./build",
+    "clean": "rm -rf build",
+    "docs": "swagger-jsdoc -d swaggerDefinition.js source/routes/*.ts",
+    "predev": "npm run docs",
     "dev": "ts-node-dev -r tsconfig-paths/register source/server.ts",
     "lint": "eslint . --ext .ts",
-    "start": "npm run build && node build/server.js",
+    "prestart": "npm run build",
+    "start": "node build/server.js",
     "test": "jest"
   },
   "keywords": [],

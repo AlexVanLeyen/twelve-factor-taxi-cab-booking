@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "config",
         "testing",
-        "monitoring"
+        "monitoring",
+        "docs"
     ]
 }
